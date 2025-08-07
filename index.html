@@ -5,88 +5,116 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Don't Worry, Be Happy</title>
 
-  <!-- ღიმილის ფავიკონი -->
-  <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emojione_1F604.svg/64px-Emojione_1F604.svg.png">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://png.pngtree.com/png-clipart/20240109/original/pngtree-smile-icon-smile-sign-happy-emoticon-png-image_14055400.png">
 
-  <!-- ლამაზი, თბილი შრიფტი -->
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Quicksand', sans-serif;
-      background: #fff8f0; /* თბილი ფონი */
       overflow: hidden;
+      background: #fff6f0;
+      font-family: 'Quicksand', sans-serif;
+      height: 100vh;
+      position: relative;
     }
 
-    .center-text {
+    .center-container {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 3rem;
-      font-weight: 700;
-      color: #e07a5f; /* თბილი მოწითალო ფერი */
+      z-index: 10;
+      pointer-events: none;
+      width: 80%;
+      max-width: 800px;
       text-align: center;
     }
 
+    .center-text {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #e07a5f;
+    }
+
     .smiley {
-  position: absolute;
-  font-size: 0.9rem;
-  color: #ff9a8b; /* თბილი ვარდისფერი, კონტრასტული */
-  animation: float 30s ease-in-out infinite alternate;
-  pointer-events: none;
-  white-space: nowrap;
-  z-index: 1;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* ოდნავი ჩრდილი უკეთესი ხილვადობისთვის */
-}
+      position: absolute;
+      font-size: 0.9rem;
+      animation: float 30s ease-in-out infinite alternate;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 1;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+      opacity: 0.8;
+      animation-name: float, pulse;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+
+    .smile {
+      color: #f4a261;
+    }
+
+    .gaigime {
+      color: #2a9d8f;
+    }
 
     @keyframes float {
-      from {
+      0% {
         transform: translate(0, 0);
       }
-      to {
-        transform: translate(var(--x), var(--y));
+      100% {
+        transform: translate(-100px, 100px);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.4;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
       }
     }
   </style>
 </head>
 <body>
-
-  <div class="center-text">Don't Worry, Be Happy &lt;3</div>
+  <div class="center-container">
+    <div class="center-text">Don't Worry, Be Happy <3</div>
+  </div>
 
   <script>
-    const COUNT = 150;
-    const TEXTS = ['გაიღიმე :)', 'smile :)'];
-
-    for (let i = 0; i < COUNT; i++) {
-      const el = document.createElement('div');
-      el.className = 'smiley';
-
-      const text = TEXTS[Math.floor(Math.random() * TEXTS.length)];
+    function createSmiley(text, className) {
+      const el = document.createElement('span');
+      el.className = 'smiley ' + className;
       el.textContent = text;
 
-      el.style.top = Math.random() * 100 + 'vh';
-      el.style.left = Math.random() * 100 + 'vw';
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const radius = 150;
+      let x, y;
 
-      const dx = (Math.random() - 0.5) * 400 + 'px';
-      const dy = (Math.random() - 0.5) * 400 + 'px';
-      el.style.setProperty('--x', dx);
-      el.style.setProperty('--y', dy);
+      do {
+        x = Math.random() * window.innerWidth;
+        y = Math.random() * window.innerHeight;
+      } while (Math.abs(x - centerX) < radius && Math.abs(y - centerY) < radius);
 
-      el.style.animationDuration = 25 + Math.random() * 15 + 's';
-
-      // ფერები ტექსტების მიხედვით
-      if (text === 'გაიღიმე :)') {
-        el.style.color = '#F8BBD0'; // ღია ვარდისფერი
-      } else {
-        el.style.color = '#A7C7E7'; // ღია ცისფერი
-      }
+      el.style.left = `${x}px`;
+      el.style.top = `${y}px`;
+      el.style.animationDuration = `${20 + Math.random() * 20}s, ${4 + Math.random() * 4}s`;
 
       document.body.appendChild(el);
     }
-  </script>
 
+    for (let i = 0; i < 50; i++) {
+      createSmiley('გაიღიმე :)', 'gaigime');
+      createSmiley('smile :)', 'smile');
+    }
+  </script>
 </body>
 </html>
