@@ -1,12 +1,78 @@
 <!DOCTYPE html>
 <html lang="ka">
 <head>
-  <meta charset="UTF-8">
-  <title>Be Happy</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>გამხიარულდი</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f7f8fa, #eaeef3); /* მსუბუქი ხალიას ფონზე */
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      position: relative;
+      height: 100vh;
+    }
+
+    .center-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: #222;
+      z-index: 2;
+    }
+
+    .smiley {
+      position: absolute;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.08);
+      pointer-events: none;
+      white-space: nowrap;
+      animation: move 20s linear infinite;
+    }
+
+    @keyframes move {
+      0% {
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--x), var(--y));
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Be Happy</h1>
-  <p>test</p>
+  <div class="center-text">იყავი ბედნიერი!</div>
+
+  <script>
+    const smileyCount = 100;
+
+    for (let i = 0; i < smileyCount; i++) {
+      const smiley = document.createElement('div');
+      smiley.classList.add('smiley');
+      smiley.textContent = 'გაიღიმე :)';
+
+      // შემთხვევითი პოზიცია ეკრანზე
+      smiley.style.top = Math.random() * 100 + 'vh';
+      smiley.style.left = Math.random() * 100 + 'vw';
+
+      // შემთხვევითი მოძრაობა
+      const dx = (Math.random() - 0.5) * 200 + 'px';
+      const dy = (Math.random() - 0.5) * 200 + 'px';
+      smiley.style.setProperty('--x', dx);
+      smiley.style.setProperty('--y', dy);
+
+      // სხვადასხვა ანიმაციის ხანგრძლივობა
+      smiley.style.animationDuration = 10 + Math.random() * 20 + 's';
+
+      document.body.appendChild(smiley);
+    }
+  </script>
 </body>
 </html>
-
