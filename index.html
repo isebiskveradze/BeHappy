@@ -3,16 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>გამხიარულდი</title>
+  <title>Don't Worry, Be Happy!</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #f7f8fa, #eaeef3); /* მსუბუქი ხალიას ფონზე */
       overflow: hidden;
+      background: linear-gradient(135deg, #fff5e6, #fcefe3); /* თბილი ნათელი ფონი */
       font-family: 'Arial', sans-serif;
-      position: relative;
-      height: 100vh;
     }
 
     .center-text {
@@ -20,59 +18,65 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 3.5rem;
+      font-size: 4rem;
       font-weight: bold;
       color: #222;
-      z-index: 2;
+      z-index: 10;
+      text-align: center;
     }
 
     .smiley {
       position: absolute;
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.08);
-      pointer-events: none;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.07);
       white-space: nowrap;
-      animation: move 20s linear infinite;
+      pointer-events: none;
+      animation: float 30s linear infinite;
     }
 
-    @keyframes move {
-      0% {
+    @keyframes float {
+      from {
         transform: translate(0, 0);
         opacity: 1;
       }
-      100% {
+      to {
         transform: translate(var(--x), var(--y));
-        opacity: 0;
+        opacity: 1;
       }
     }
   </style>
 </head>
 <body>
-  <div class="center-text">გამხიარულდი</div>
+
+  <div class="center-text">Don't Worry, Be Happy!</div>
 
   <script>
-    const smileyCount = 100;
+    const COUNT = 150;
+    const TEXTS = ['გაიღიმე :)', 'smile :)'];
 
-    for (let i = 0; i < smileyCount; i++) {
-      const smiley = document.createElement('div');
-      smiley.classList.add('smiley');
-      smiley.textContent = 'გაიღიმე :)';
+    for (let i = 0; i < COUNT; i++) {
+      const el = document.createElement('div');
+      el.className = 'smiley';
 
-      // შემთხვევითი პოზიცია ეკრანზე
-      smiley.style.top = Math.random() * 100 + 'vh';
-      smiley.style.left = Math.random() * 100 + 'vw';
+      // შემთხვევით აირჩიოს ტექსტი
+      el.textContent = TEXTS[Math.floor(Math.random() * TEXTS.length)];
 
-      // შემთხვევითი მოძრაობა
-      const dx = (Math.random() - 0.5) * 200 + 'px';
-      const dy = (Math.random() - 0.5) * 200 + 'px';
-      smiley.style.setProperty('--x', dx);
-      smiley.style.setProperty('--y', dy);
+      // შემთხვევითი საწყისი პოზიცია
+      el.style.top = Math.random() * 100 + 'vh';
+      el.style.left = Math.random() * 100 + 'vw';
 
-      // სხვადასხვა ანიმაციის ხანგრძლივობა
-      smiley.style.animationDuration = 10 + Math.random() * 20 + 's';
+      // შემთხვევითი მიმართულება
+      const dx = (Math.random() - 0.5) * 400 + 'px';
+      const dy = (Math.random() - 0.5) * 400 + 'px';
+      el.style.setProperty('--x', dx);
+      el.style.setProperty('--y', dy);
 
-      document.body.appendChild(smiley);
+      // შემთხვევითი სიჩქარე
+      el.style.animationDuration = 20 + Math.random() * 30 + 's';
+
+      document.body.appendChild(el);
     }
   </script>
+
 </body>
 </html>
