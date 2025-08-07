@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="ka">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Don't Worry, Be Happy <3 </title>
+  <title>Don't Worry, Be Happy</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       overflow: hidden;
-      background: linear-gradient(135deg, #fff5e6, #fcefe3); /* თბილი ნათელი ფონი */
+      background: linear-gradient(135deg, #fff0e1, #ffe5cc); /* თბილი ფონი */
       font-family: 'Arial', sans-serif;
     }
 
@@ -20,15 +20,16 @@
       transform: translate(-50%, -50%);
       font-size: 4rem;
       font-weight: bold;
-      color: #250;
+      color: #222;
       z-index: 10;
       text-align: center;
+      padding: 0 20px;
     }
 
     .smiley {
       position: absolute;
-      font-size: 12px;
-      color: rgba(0, 0, 0, 0.07);
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.12); /* უკეთ შესამჩნევი ფერი */
       white-space: nowrap;
       pointer-events: none;
       animation: float 30s linear infinite;
@@ -44,35 +45,51 @@
         opacity: 1;
       }
     }
+
+    @media (max-width: 768px) {
+      .center-text {
+        font-size: 2.5rem;
+      }
+
+      .smiley {
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .center-text {
+        font-size: 2rem;
+      }
+
+      .smiley {
+        font-size: 11px;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <div class="center-text">Don't Worry, Be Happy <3</div>
+  <div class="center-text">Don't Worry, Be Happy &lt;3</div>
 
   <script>
-    const COUNT = 150;
+    const COUNT = 180; // ოდნავ მეტი ტექსტი
     const TEXTS = ['გაიღიმე :)', 'smile :)'];
 
     for (let i = 0; i < COUNT; i++) {
       const el = document.createElement('div');
       el.className = 'smiley';
 
-      // შემთხვევით აირჩიოს ტექსტი
       el.textContent = TEXTS[Math.floor(Math.random() * TEXTS.length)];
 
-      // შემთხვევითი საწყისი პოზიცია
       el.style.top = Math.random() * 100 + 'vh';
       el.style.left = Math.random() * 100 + 'vw';
 
-      // შემთხვევითი მიმართულება
       const dx = (Math.random() - 0.5) * 400 + 'px';
       const dy = (Math.random() - 0.5) * 400 + 'px';
       el.style.setProperty('--x', dx);
       el.style.setProperty('--y', dy);
 
-      // შემთხვევითი სიჩქარე
-      el.style.animationDuration = 20 + Math.random() * 50 + 's';
+      el.style.animationDuration = 25 + Math.random() * 20 + 's';
 
       document.body.appendChild(el);
     }
