@@ -9,7 +9,7 @@
     body {
       margin: 0;
       height: 100vh;
-      background: linear-gradient(135deg, #FFF6E5, #FFEFEF);
+      background: linear-gradient(135deg, #fff5e1, #ffe1f0);
       overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
       position: relative;
@@ -73,7 +73,7 @@
       el.style.fontSize = `${12 + Math.random() * 10}px`;
       el.style.setProperty('--rand-x', Math.random());
       el.style.setProperty('--rand-y', Math.random());
-      el.style.animationDuration = `${10 + Math.random() * 10}s, ${5 + Math.random() * 3}s`; // მოძრაობა + გამჭვირვალობა
+      el.style.animationDuration = `${10 + Math.random() * 5}s, ${5 + Math.random() * 3}s`; // 💨 აქ დაჩქარებულია
       document.body.appendChild(el);
     }
   </script>
