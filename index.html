@@ -43,7 +43,6 @@
     .smiley {
       position: absolute;
       font-size: 0.9rem;
-      animation: float 8s ease-in-out infinite alternate, pulse 6s ease-in-out infinite;
       pointer-events: none;
       white-space: nowrap;
       z-index: 1;
@@ -57,24 +56,6 @@
     .gaigime {
       color: #2a9d8f;
     }
-
-    @keyframes float {
-      0% {
-        transform: translate(0, 0);
-      }
-      100% {
-        transform: translate(-100px, 100px);
-      }
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 0.4;
-      }
-      50% {
-        opacity: 1;
-      }
-    }
   </style>
 </head>
 <body>
@@ -83,7 +64,21 @@
   </div>
 
   <script>
-    function createSmiley(text, className) {
+    const styleSheet = document.createElement("style");
+    document.head.appendChild(styleSheet);
+
+    function createRandomKeyframes(name, dx, dy) {
+      const keyframes = `
+        @keyframes ${name} {
+          0% { transform: translate(0, 0); opacity: 0.5; }
+          50% { transform: translate(${dx / 2}px, ${dy / 2}px); opacity: 1; }
+          100% { transform: translate(${dx}px, ${dy}px); opacity: 0.6; }
+        }
+      `;
+      styleSheet.sheet.insertRule(keyframes, styleSheet.sheet.cssRules.length);
+    }
+
+    function createSmiley(text, className, index) {
       const el = document.createElement('span');
       el.className = 'smiley ' + className;
       el.textContent = text;
@@ -101,12 +96,23 @@
       el.style.left = `${x}px`;
       el.style.top = `${y}px`;
 
+      // Generate random movement distance
+      const dx = (Math.random() - 0.5) * 200;
+      const dy = (Math.random() - 0.5) * 200;
+
+      const animName = `float_${index}`;
+      createRandomKeyframes(animName, dx, dy);
+
+      const duration = 8 + Math.random() * 10;
+
+      el.style.animation = `${animName} ${duration}s ease-in-out infinite alternate`;
+
       document.body.appendChild(el);
     }
 
     for (let i = 0; i < 50; i++) {
-      createSmiley('გაიღიმე :)', 'gaigime');
-      createSmiley('smile :)', 'smile');
+      createSmiley('გაიღიმე :)', 'gaigime', i * 2);
+      createSmiley('smile :)', 'smile', i * 2 + 1);
     }
   </script>
 </body>
