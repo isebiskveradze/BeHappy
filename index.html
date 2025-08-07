@@ -90,26 +90,47 @@
 
   <script>
     function createSmiley(text, className) {
-      const el = document.createElement('span');
-      el.className = 'smiley ' + className;
-      el.textContent = text;
+  const el = document.createElement('span');
+  el.className = 'smiley ' + className;
+  el.textContent = text;
 
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      const radius = 150;
-      let x, y;
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
+  const radius = 150;
+  let x, y;
 
-      do {
-        x = Math.random() * window.innerWidth;
-        y = Math.random() * window.innerHeight;
-      } while (Math.abs(x - centerX) < radius && Math.abs(y - centerY) < radius);
+  do {
+    x = Math.random() * window.innerWidth;
+    y = Math.random() * window.innerHeight;
+  } while (Math.abs(x - centerX) < radius && Math.abs(y - centerY) < radius);
 
-      el.style.left = `${x}px`;
-      el.style.top = `${y}px`;
-      el.style.animationDuration = `${5 + Math.random() * 10}s, ${5 + Math.random() * 8}s`;
+  el.style.left = `${x}px`;
+  el.style.top = `${y}px`;
 
-      document.body.appendChild(el);
+  // 🎯 განსხვავებული მოძრაობა ყველა ელემენტისთვის
+  const dx = (Math.random() - 0.5) * 200; // -100 to +100
+  const dy = (Math.random() - 0.5) * 200;
+  const duration = 5 + Math.random() * 5; // 5s to 10s
+
+  // ცალკე კადრების გენერაცია
+  const keyframes = `
+    @keyframes float-${x}-${y} {
+      0% { transform: translate(0px, 0px); }
+      100% { transform: translate(${dx}px, ${dy}px); }
     }
+  `;
+
+  const styleSheet = document.styleSheets[0];
+  styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+
+  el.style.animationName = `float-${x}-${y}, pulse`;
+  el.style.animationDuration = `${duration}s, ${5 + Math.random() * 3}s`;
+  el.style.animationIterationCount = 'infinite';
+  el.style.animationDirection = 'alternate';
+
+  document.body.appendChild(el);
+}
+
 
     for (let i = 0; i < 50; i++) {
       createSmiley('გაიღიმე :)', 'gaigime');
