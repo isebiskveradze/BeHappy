@@ -2,39 +2,64 @@
 <html lang="ka">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Be Happy</title>
-  <link rel="icon" href="https://em-content.zobj.net/source/microsoft-teams/363/smiling-face_263a-fe0f.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Don't Worry, Be Happy</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://png.pngtree.com/png-clipart/20240109/original/pngtree-smile-icon-smile-sign-happy-emoticon-png-image_14055400.png">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #fff5e1, #ffe1f0);
+      padding: 0;
       overflow: hidden;
-      font-family: 'Segoe UI', sans-serif;
+      background: #fff6f0;
+      font-family: 'Quicksand', sans-serif;
+      height: 100vh;
       position: relative;
     }
 
-    h1 {
+    .center-container {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 3rem;
-      color: #ff6f61;
-      font-weight: 600;
-      z-index: 2;
+      z-index: 10;
+      pointer-events: none;
+      width: 80%;
+      max-width: 800px;
       text-align: center;
     }
 
-    .floating-text {
+    .center-text {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #e07a5f;
+    }
+
+    .smiley {
       position: absolute;
+      font-size: 0.9rem;
+      animation: float 30s ease-in-out infinite alternate;
+      pointer-events: none;
       white-space: nowrap;
-      opacity: 0.6;
-      animation-name: float, fade;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
       z-index: 1;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+      opacity: 0.8;
+      animation-name: float, pulse;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+
+    .smile {
+      color: #f4a261;
+    }
+
+    .gaigime {
+      color: #2a9d8f;
     }
 
     @keyframes float {
@@ -42,39 +67,53 @@
         transform: translate(0, 0);
       }
       100% {
-        transform: translate(
-          calc(-50px + 100px * var(--rand-x, 0.5)),
-          calc(-50px + 100px * var(--rand-y, 0.5))
-        );
+        transform: translate(-100px, 100px);
       }
     }
 
-    @keyframes fade {
-      0%, 100% { opacity: 0.4; }
-      50% { opacity: 0.9; }
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.4;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Don't Worry, Be Happy ❤</h1>
+  <div class="center-container">
+    <div class="center-text">Don't Worry, Be Happy <3</div>
+  </div>
 
   <script>
-    const texts = ["გაიღიმე :)", "smile :)"];
-    const colors = ["#FFB6B6", "#B6E5FF"];
-    const numTexts = 30;
+    function createSmiley(text, className) {
+      const el = document.createElement('span');
+      el.className = 'smiley ' + className;
+      el.textContent = text;
 
-    for (let i = 0; i < numTexts; i++) {
-      const el = document.createElement("div");
-      el.classList.add("floating-text");
-      el.textContent = texts[Math.floor(Math.random() * texts.length)];
-      el.style.color = colors[Math.floor(Math.random() * colors.length)];
-      el.style.left = `${Math.random() * 100}%`;
-      el.style.top = `${Math.random() * 100}%`;
-      el.style.fontSize = `${12 + Math.random() * 10}px`;
-      el.style.setProperty('--rand-x', Math.random());
-      el.style.setProperty('--rand-y', Math.random());
-      el.style.animationDuration = `${10 + Math.random() * 5}s, ${5 + Math.random() * 3}s`; // 💨 აქ დაჩქარებულია
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const radius = 150;
+      let x, y;
+
+      do {
+        x = Math.random() * window.innerWidth;
+        y = Math.random() * window.innerHeight;
+      } while (Math.abs(x - centerX) < radius && Math.abs(y - centerY) < radius);
+
+      el.style.left = `${x}px`;
+      el.style.top = `${y}px`;
+      el.style.animationDuration = `${10 + Math.random() * 5}s, ${5 + Math.random() * 8}s`;
+
       document.body.appendChild(el);
+    }
+
+    for (let i = 0; i < 50; i++) {
+      createSmiley('გაიღიმე :)', 'gaigime');
+      createSmiley('smile :)', 'smile');
     }
   </script>
 </body>
